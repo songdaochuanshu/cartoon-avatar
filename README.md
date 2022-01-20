@@ -9,7 +9,6 @@
 -->
 # 🐱 cartoon Avatar
 
-# gitHubPages 
 > https://songdaochuanshu.github.io/cartoon-avatar/
 
 Choose your cartoon Avatar
