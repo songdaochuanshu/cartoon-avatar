@@ -4,7 +4,7 @@
  * @Author: MiKin
  * @Date: 2022-01-19 21:48:11
  * @LastEditors: MiKin
- * @LastEditTime: 2022-02-24 16:40:38
+ * @LastEditTime: 2022-02-24 17:10:51
  * @FilePath: \cartoon-avatar\src\App.vue
 -->
 <script setup>
@@ -16,13 +16,17 @@ let count = ref(140);
 let images = ref([]);
 let newImages = ref([]);
 
-fetch('/json/avatar.json').then(res => {
+fetch(`${location.pathname}json/avatar.json`).then(res => {
   return res.json()
 }).then(data => {
   images.value = data;
   getImages();
 })
 
+// real avatar
+const realAvatar = (url) => {
+  return `${location.pathname}avatar/${url}`
+}
 
 // Get the initial picture
 const getImages = () => {
@@ -58,6 +62,10 @@ const infiniteScroll = {
   }
 }
 onMounted(() => {
+  
+console.log(
+  
+);
   infiniteScroll.init();
   disableKey();
 })
@@ -65,7 +73,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Image v-for="i in newImages" :key="i" :src="`/avatar/${i}`" />
+  <Image v-for="i in newImages" :key="i" :src="`${realAvatar(i)}`" />
 </template>
 
 <style>
