@@ -8,3 +8,4 @@ yarn.lock
 .vscode
 index.js
 git.js
+fs.js

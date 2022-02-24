@@ -1,3 +1,12 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: MiKin
+ * @Date: 2022-02-24 13:41:16
+ * @LastEditors: MiKin
+ * @LastEditTime: 2022-02-24 16:02:19
+ * @FilePath: \cartoon-avatar\src\components\Image.vue
+-->
 <script setup>
 import { showBigImage } from '../hooks/showBigImage'
 
@@ -22,7 +31,7 @@ const errorImage = (el) => {
   <img
     width="155"
     height="155"
-    :src="`https://cdn.cartoon-avatar.songdaochuanshu.com/example-${src}.jpg`"
+    :src="src"
     style=" animation: renderImage 1s;transition: all 1s;"
     @error="errorImage"
     @click="showBigImage"

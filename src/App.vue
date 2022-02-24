@@ -4,14 +4,37 @@
  * @Author: MiKin
  * @Date: 2022-01-19 21:48:11
  * @LastEditors: MiKin
- * @LastEditTime: 2022-01-20 16:19:23
- * @FilePath: \scary ux\src\App.vue
+ * @LastEditTime: 2022-02-24 16:40:38
+ * @FilePath: \cartoon-avatar\src\App.vue
 -->
 <script setup>
 import { onMounted, ref } from "@vue/runtime-core"
 import Image from "./components/Image.vue"
+import { disableKey } from "./hooks/disableKey"
 
 let count = ref(140);
+let images = ref([]);
+let newImages = ref([]);
+
+fetch('/json/avatar.json').then(res => {
+  return res.json()
+}).then(data => {
+  images.value = data;
+  getImages();
+})
+
+
+// Get the initial picture
+const getImages = () => {
+  newImages.value = images.value.slice(0, count.value);
+}
+
+// load more
+const loadMore = () => {
+  count.value += 20;
+  getImages();
+}
+
 
 const infiniteScroll = {
   init() {
@@ -31,43 +54,18 @@ const infiniteScroll = {
     )
   },
   loadMore() {
-    console.log('加载更多')
-    count.value += 20
+    loadMore()
   }
 }
 onMounted(() => {
   infiniteScroll.init();
-  window.addEventListener('keydown', (e) => {
-    if (e.keyCode === 38) {
-      window.scrollBy(0, -100)
-    } else if (e.keyCode === 40) {
-      window.scrollBy(0, 100)
-    }
-  })
-
-  document.oncontextmenu = function () {
-    return false;
-  }
-  document.onkeydown = function () {
-    if (window.event && window.event.keyCode == 123) {
-      return false;
-    }
-  }
-  document.onkeydown = function () {
-    if (window.event && window.event.ctrlKey) {
-      if (window.event.keyCode == 67) {
-        return false;
-      }
-    }
-  }
-
+  disableKey();
 })
 
 </script>
 
 <template>
-  <div></div>
-  <Image v-for="i in count" :key="i" :src="i" />
+  <Image v-for="i in newImages" :key="i" :src="`/avatar/${i}`" />
 </template>
 
 <style>
@@ -77,5 +75,6 @@ onMounted(() => {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  text-align: center;
 }
 </style>
