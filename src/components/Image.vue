@@ -11,4 +11,4 @@
 
 ####
 Part to replace:
-    style="animation: renderImage 1s; transition: transform 0.3s ease-in-out;"
+    style="animation: renderImage 1s;  transition: transform 0.3s ease-in-out;"
